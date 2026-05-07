@@ -17,3 +17,13 @@ jobs:
           format: table
           exit-code: 0
           severity: CRITICAL,HIGH
+
+      - name: Login Harbor
+        run: |
+          docker login 172.18.0.2:30002 -u admin -p Harbor12345
+
+      - name: Tag et Push vers Harbor
+        run: |
+          docker pull nginx:latest
+          docker tag nginx:latest 172.18.0.2:30002/nginx-app/nginx:${{ github.sha }}
+          docker push 172.18.0.2:30002/nginx-app/nginx:${{ github.sha }}
