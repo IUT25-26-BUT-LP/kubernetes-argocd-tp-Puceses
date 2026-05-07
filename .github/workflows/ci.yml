@@ -10,16 +10,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Scan Trivy sur image nginx
+      - name: Scan Trivy - BLOQUE si vulnérabilité CRITICAL
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: nginx:latest
           format: table
-          exit-code: 0
-          severity: CRITICAL,HIGH
-
-      - name: Résumé sécurité
-        run: |
-          echo "Scan Trivy terminé"
-          echo "Image analysée : nginx:latest"
-          echo "Harbor déployé sur le cluster : 172.18.0.2:30002"
+          exit-code: 1
+          severity: CRITICAL
+          
+      - name: Image validée - déploiement autorisé
+        run: echo "Image sûre - ArgoCD peut déployer"
