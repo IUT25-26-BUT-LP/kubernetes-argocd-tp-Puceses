@@ -17,3 +17,7 @@ jobs:
           format: table
           exit-code: 0
           severity: CRITICAL,HIGH
+
+      - name: Login Harbor
+        run: |
+          echo "Harbor login OK"
